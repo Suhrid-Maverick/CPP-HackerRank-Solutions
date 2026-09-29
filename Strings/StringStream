@@ -1,0 +1,30 @@
+#include <iostream>
+#include <sstream>
+#include <vector>
+using namespace std;
+
+vector<int> parseInts(string str) {
+    stringstream ss(str);
+    vector<int> result;
+    int num;
+    char comma;
+
+    while (ss >> num) {
+        result.push_back(num);
+        ss >> comma; // skip ','
+    }
+    return result;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string str;
+    cin >> str;
+
+    for (int x : parseInts(str))
+        cout << x << '\n';
+
+    return 0;
+}

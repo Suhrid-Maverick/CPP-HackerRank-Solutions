@@ -1,0 +1,33 @@
+#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int q;
+    cin >> q;
+
+    map<string, int> m;
+
+    while (q--) {
+        int type;
+        string name;
+        cin >> type >> name;
+
+        if (type == 1) {
+            int marks;
+            cin >> marks;
+            m[name] += marks;
+        } else if (type == 2) {
+            m.erase(name);
+        } else {
+            auto it = m.find(name);
+            cout << (it != m.end() ? it->second : 0) << '\n';
+        }
+    }
+
+    return 0;
+}

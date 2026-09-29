@@ -1,0 +1,36 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() { 
+    vector<int> v;
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        int el;
+        cin>>el;
+        v.push_back(el);
+
+    }  
+    int f;
+    cin>>f;
+    v.erase(v.begin()+(f-1));
+    int s,e;
+    cin>>s>>e;
+    v.erase( v.begin()+(s-1), v.begin()+(e-1) );
+    int si =v.size();
+        cout<<si<<endl;
+    for(int j=0;j<si ;j++)
+    {
+        cout<<v.at(j)<<" ";
+
+    }
+
+
+    return 0;
+}

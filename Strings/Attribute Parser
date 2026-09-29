@@ -1,0 +1,75 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int N, Q;
+    cin >> N >> Q;
+    cin.ignore();
+
+    vector<string> stack;
+    unordered_map<string, string> mp;
+
+    for (int i = 0; i < N; ++i) {
+        string line;
+        getline(cin, line);
+        if (!line.empty() && line.back() == '\r') line.pop_back();
+        if (line.size() < 2) continue;
+
+        if (line[1] == '/') {
+            stack.pop_back();
+        } else {
+            int pos = 1;
+            string tag;
+            while (pos < line.size() && line[pos] != ' ' && line[pos] != '>') {
+                tag += line[pos++];
+            }
+
+            string path;
+            for (const auto &t : stack) path += t + ".";
+            path += tag;
+
+            while (pos < line.size() && line[pos] != '>') {
+                while (pos < line.size() && line[pos] == ' ') pos++;
+                if (line[pos] == '>') break;
+
+                string attr;
+                while (pos < line.size() && line[pos] != ' ' && line[pos] != '=') {
+                    attr += line[pos++];
+                }
+
+                while (pos < line.size() && (line[pos] == ' ' || line[pos] == '=')) pos++;
+                while (pos < line.size() && line[pos] == ' ') pos++;
+
+                if (line[pos] == '"') pos++;
+                string val;
+                while (pos < line.size() && line[pos] != '"') {
+                    val += line[pos++];
+                }
+                if (line[pos] == '"') pos++;
+
+                mp[path + "~" + attr] = val;
+            }
+            stack.push_back(tag);
+        }
+    }
+
+    for (int i = 0; i < Q; ++i) {
+        string query;
+        getline(cin, query);
+        if (!query.empty() && query.back() == '\r') query.pop_back();
+
+        auto it = mp.find(query);
+        if (it != mp.end())
+            cout << it->second << '\n';
+        else
+            cout << "Not Found!\n";
+    }
+
+    return 0;
+}

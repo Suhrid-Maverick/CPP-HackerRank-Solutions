@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    const char* words[] = {
+        "one", "two", "three", "four", "five",
+        "six", "seven", "eight", "nine"
+    };
+
+    if (n >= 1 && n <= 9)
+        cout << words[n - 1] << '\n';
+    else
+        cout << "Greater than 9\n";
+
+    return 0;
+}
